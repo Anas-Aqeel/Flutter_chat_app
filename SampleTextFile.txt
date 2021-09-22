@@ -1,0 +1,55 @@
+hide emelator sidebar
+
+xdotool selectwindow
+xdotool windowminimize
+
+
+
+
+
+
+
+connect firebase with flutter project
+
+
+
+
+first step:
+ 
+app level build.gridle -> application id
+
+
+
+
+second step:
+
+download google services.json
+paste this file into android --> app
+
+
+
+step 3:
+
+add the class path in dependencies into project level build.gridle
+dependencies:{
+
+    other dependencies
+
+    classpath : class path here
+}
+
+
+
+step 4:
+
+app_level build.gridle
+
+apply_plugin : apply plugin here at the bottom of the file
+
+set minimum sdk version to 21 in the same file
+
+
+
+last step:
+
+add packages into pubspec.yaml file
