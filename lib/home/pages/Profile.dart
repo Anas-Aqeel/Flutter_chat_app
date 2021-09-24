@@ -1,6 +1,8 @@
 // import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
+import 'package:chat_app_ui/home/widgets/editBioBox.dart';
+import 'package:chat_app_ui/home/widgets/editProfileBox.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -14,54 +16,57 @@ class Profile extends StatelessWidget {
         bottomNavigationBar: MyBottomAppBar(),
         body: SafeArea(
           child: Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                    color: Colors.blueGrey[200],
-                    height: MediaQuery.of(context).size.height / 1.7,
-                    child: Column(
-                      children: [
-                        ProfileNavBar(),
-                        SizedBox(height: 25),
-                        Stack(
-                          children: [
-                            SizedBox(
-                              width: 350,
-                              height: 280,
-                            ),
-                            Positioned(
-                              bottom: 1,
-                              left: 20,
-                              right: 20,
-                              child: Container(
-                                height: 200,
-                                width: 250,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(
-                                        color: Colors.blueGrey, width: 1),
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Column(
-                                  children: [
-                                    SizedBox(height: 60),
-                                    UsernameText(),
-                                    SizedBox(height: 5),
-                                    Location(),
-                                    SizedBox(height: 10),
-                                    AddFriendBtn()
-                                  ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      color: Colors.blueGrey[200],
+                      height: MediaQuery.of(context).size.height / 1.7,
+                      child: Column(
+                        children: [
+                          ProfileNavBar(),
+                          SizedBox(height: 25),
+                          Stack(
+                            children: [
+                              SizedBox(
+                                width: 350,
+                                height: 280,
+                              ),
+                              Positioned(
+                                bottom: 1,
+                                left: 20,
+                                right: 20,
+                                child: Container(
+                                  height: 200,
+                                  width: 250,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(
+                                          color: Colors.blueGrey, width: 1),
+                                      borderRadius: BorderRadius.circular(30)),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(height: 60),
+                                      UsernameText(),
+                                      SizedBox(height: 5),
+                                      Location(),
+                                      SizedBox(height: 10),
+                                      AddFriendBtn()
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                            ProfilePicture()
-                          ],
-                        ),
-                      ],
-                    )),
-                ProfileFooter()
-              ],
+                              ProfilePicture()
+                            ],
+                          ),
+                        ],
+                      )),
+                  ProfileFooter()
+                ],
+              ),
             ),
           ),
         ));
@@ -69,12 +74,10 @@ class Profile extends StatelessWidget {
 }
 
 class ProfileFooter extends StatelessWidget {
-  // const ProfileFooter({
-  //   Key? key,
-  // }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    TextEditingController bio =
+        TextEditingController(text: '${userData['bio']} ');
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
@@ -91,34 +94,8 @@ class ProfileFooter extends StatelessWidget {
                     color: Colors.blueGrey[800]),
               ),
               GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text("Write your bio"),
-                        content: TextFormField(
-                          initialValue: '${userData['bio']}',
-                          maxLength: 250,
-                          minLines: 1,
-                          maxLines: 6,
-                        ),
-                        actions: <Widget>[
-                          ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: Text('Close'),
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              onPrimary: Colors.redAccent,
-                              primary: Colors.white,
-                            ),
-                          )
-                        ],
-                      );
-                    },
-                  );
+                onTap: () async {
+                  await editBioBox(context, bio);
                 },
                 child: Icon(
                   Icons.edit,
@@ -142,23 +119,21 @@ class ProfileFooter extends StatelessWidget {
       ),
     );
   }
-}
 
+ 
+}
 class AddFriendBtn extends StatelessWidget {
-  // const AddFriendBtn({
-  //   Key? key,
-  // }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: () {},
-      child: Text('Add Friend'),
+      child: Text('Message'),
       style: ElevatedButton.styleFrom(
         onPrimary: Colors.blueGrey,
         primary: Colors.white,
         shape: RoundedRectangleBorder(
           side: BorderSide(width: 1.5, color: Colors.blueGrey),
-          borderRadius: BorderRadius.circular(8), // <-- Radius
+          borderRadius: BorderRadius.circular(8),
         ),
       ),
     );
@@ -177,7 +152,7 @@ class Location extends StatelessWidget {
         ),
         SizedBox(width: 5),
         Text(
-          '${userData['state']} ${userData['country']}',
+          '${userData['state']}, ${userData['country']}',
           style: TextStyle(
               fontSize: 14,
               color: Colors.blueGrey,
@@ -228,10 +203,15 @@ class ProfileNavBar extends StatelessWidget {
           size: 33,
           color: Colors.blueGrey[800],
         ),
-        Icon(
-          Icons.edit,
-          size: 30,
-          color: Colors.blueGrey[800],
+        GestureDetector(
+          onTap: ()async{
+            await editProfileBioBox(context);
+          },
+          child: Icon(
+            Icons.edit,
+            size: 30,
+            color: Colors.blueGrey[800],
+          ),
         ),
       ],
     );
