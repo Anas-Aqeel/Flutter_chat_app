@@ -15,13 +15,14 @@ Future<dynamic> editBio(String bio) async {
   }
 }
 
-Future<dynamic> editProfile(String name, String state, String country) async {
+Future<dynamic> editProfile(String name, String state, String country, String link) async {
   try {
     User user = FirebaseAuth.instance.currentUser!;
     FirebaseFirestore db = FirebaseFirestore.instance;
     userData['name'] = name;
     userData['state'] = state;
     userData['country'] = country;
+    userData['profilePic'] = link;
 
     print(userData);
     await db.collection('users').doc(user.uid).set(userData);

@@ -186,8 +186,13 @@ class ProfilePicture extends StatelessWidget {
       child: CircleAvatar(
         backgroundColor: Colors.blueGrey[100],
         radius: 60,
+        child: ClipOval(
+          
+        child: Image.network(
+          userData["profilePic"],
+        ),
       ),
-    );
+    ));
   }
 }
 

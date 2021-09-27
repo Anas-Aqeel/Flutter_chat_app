@@ -1,5 +1,11 @@
 import 'package:chat_app_ui/home/utils/editProfile.dart';
+import 'package:chat_app_ui/home/utils/pickImage.dart';
+import 'package:chat_app_ui/home/utils/uploadPic.dart';
 import 'package:flutter/material.dart';
+
+dynamic profileImage;
+dynamic imageName;
+dynamic link;
 
 editProfileBioBox(BuildContext context) async {
   showDialog(
@@ -8,7 +14,6 @@ editProfileBioBox(BuildContext context) async {
       TextEditingController name = TextEditingController();
       TextEditingController state = TextEditingController();
       TextEditingController country = TextEditingController();
-
       return AlertDialog(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,25 +29,41 @@ editProfileBioBox(BuildContext context) async {
         content: SingleChildScrollView(
           child: Column(
             children: [
-              CircleAvatar(
-                backgroundColor: Colors.blueGrey[100],
-                radius: 60,
+              GestureDetector(
+                onTap: () async {
+                  print(profileImage);
+                  await pickImage();
+                  print(profileImage);
+                },
+                child: CircleAvatar(
+                  backgroundColor: Colors.blueGrey[100],
+                  backgroundImage:
+                      profileImage != null ? FileImage(profileImage) : null,
+                  radius: 60,
+                ),
               ),
               SizedBox(height: 20),
-              CustomTextField(name, hntTxt: 'Name', icn: Icons.account_circle_outlined),
+              CustomTextField(name,
+                  hntTxt: 'Name', icn: Icons.account_circle_outlined),
               SizedBox(height: 10),
-              CustomTextField(state, hntTxt: 'Your current city', icn: Icons.add_location_alt_outlined),
+              CustomTextField(state,
+                  hntTxt: 'Your current city',
+                  icn: Icons.add_location_alt_outlined),
               SizedBox(height: 10),
-              CustomTextField(country, hntTxt: 'Your current Country', icn: Icons.location_city,),
-              
+              CustomTextField(
+                country,
+                hntTxt: 'Your current Country',
+                icn: Icons.location_city,
+              ),
             ],
           ),
         ),
         actions: <Widget>[
           ElevatedButton(
-            onPressed: () async{
-                await editProfile(name.text, state.text, country.text);
-                Navigator.pop(context);
+            onPressed: () async {
+              await uploadPic(imageName,profileImage);
+              await editProfile(name.text, state.text, country.text, link);
+              Navigator.pop(context);
             },
             child: Text('Save'),
             style: ElevatedButton.styleFrom(

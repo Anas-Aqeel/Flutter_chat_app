@@ -18,9 +18,11 @@ Future<dynamic> login(String email, String password) async {
       return 'Wrong password provided for that user.';
     }
   } catch (e) {
-    return "$e";
+    return "the error is \n$e";
   }
-  throw {};
+  throw {
+    
+  };
 }
 
 Future<dynamic> fetchUserData(String uid)async{
@@ -33,6 +35,7 @@ Future<dynamic> fetchUserData(String uid)async{
     return 'the error is \n$e';
   }
 }
+
 Future<dynamic> handleUser(String email, String password)async{
   return Future
     .wait([login(email,password)])
@@ -41,8 +44,7 @@ Future<dynamic> handleUser(String email, String password)async{
 }
 
 void getUserData(String uid){
-  print(
-   Future
+   print(Future
     .wait([
      fetchUserData(uid)
     ])

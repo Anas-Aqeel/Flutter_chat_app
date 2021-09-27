@@ -14,6 +14,7 @@ Future<String> register(String name, String email, String password) async {
       'country': '',
       'state': '',
       'bio': '',
+      'profilePic':''
     });
     DocumentSnapshot client = await FirebaseFirestore.instance
         .collection("users")
