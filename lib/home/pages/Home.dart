@@ -1,4 +1,3 @@
-// ignore: unused_import
 import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/home/utils/signout.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
@@ -13,6 +12,7 @@ class MyChatScreen extends StatefulWidget {
 }
 
 class _MyChatScreenState extends State<MyChatScreen> {
+  var itemCount = userData['chats'].length;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,15 +32,13 @@ class _MyChatScreenState extends State<MyChatScreen> {
               ListView.builder(
                   physics: NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount:
-                      userData['chats'] == null ? 0 : userData['chats'].length,
+                  itemCount: itemCount,
                   itemBuilder: (BuildContext context, int i) {
-
                     return ConversationBox(
                       caption: userData['chats'][i]['email'],
                       txt: userData['chats'][i]['name'],
                       dp: userData['chats'][i]['profilePic'],
-                      func: (){},
+                      func: () {},
                     );
                   }),
             ],
