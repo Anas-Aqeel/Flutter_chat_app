@@ -1,5 +1,10 @@
+// ignore: unused_import
+import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/home/utils/signout.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
+import 'package:chat_app_ui/home/widgets/conversationBox.dart';
+import 'package:chat_app_ui/home/widgets/searchBar.dart';
+import 'package:chat_app_ui/home/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class MyChatScreen extends StatefulWidget {
@@ -24,89 +29,26 @@ class _MyChatScreenState extends State<MyChatScreen> {
               SizedBox(
                 height: 5,
               ),
-              Container()
+              ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount:
+                      userData['chats'] == null ? 0 : userData['chats'].length,
+                  itemBuilder: (BuildContext context, int i) {
+
+                    return ConversationBox(
+                      caption: userData['chats'][i]['email'],
+                      txt: userData['chats'][i]['name'],
+                      dp: userData['chats'][i]['profilePic'],
+                      func: (){},
+                    );
+                  }),
             ],
           ),
         ),
       ),
       bottomNavigationBar: MyBottomAppBar(),
     );
-  }
-}
-
-
-
-class ConversationBox extends StatelessWidget {
-  final txt;
-  final caption;
-  final dp;
-  ConversationBox({this.dp, this.caption, this.txt});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              CircleAvatar(
-                backgroundColor: Colors.grey[50],
-                backgroundImage: AssetImage('$dp'),
-                radius: 30,
-              ),
-              SizedBox(width: 14),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  PrimaryText('$txt',
-                      size: 19,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87),
-                  SizedBox(
-                    height: 4,
-                  ),
-                  PrimaryText(
-                    '$caption',
-                    size: 15,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black45,
-                  ),
-                ],
-              )
-            ],
-          ),
-          PrimaryText(
-            'Today',
-            size: 15,
-            fontWeight: FontWeight.w900,
-            color: Colors.black54,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SearchBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-        decoration: InputDecoration(
-      hintText: "Search...",
-      hintStyle: TextStyle(color: Colors.grey.shade600),
-      prefixIcon: Icon(
-        Icons.search,
-        color: Colors.grey.shade600,
-        size: 20,
-      ),
-      filled: true,
-      fillColor: Colors.grey.shade100,
-      enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20),
-          borderSide: BorderSide(color: Colors.grey.shade100)),
-    ));
   }
 }
 
@@ -143,54 +85,6 @@ class Header extends StatelessWidget {
                   ])
         ]),
       ],
-    );
-  }
-}
-
-class AddButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      onPressed: () {},
-      elevation: 0,
-      highlightColor: Colors.pink[100],
-      shape: StadiumBorder(),
-      color: Colors.pink[50],
-      child: Row(
-        children: [
-          Icon(
-            Icons.add,
-            size: 25,
-            color: Colors.pink[500],
-          ),
-          SizedBox(
-            width: 3,
-          ),
-          Text(
-            'Add New',
-            style: TextStyle(fontSize: 17, fontWeight: FontWeight.w900),
-          )
-        ],
-      ),
-    );
-  }
-}
-
-class PrimaryText extends StatelessWidget {
-  final String text;
-  final FontWeight fontWeight;
-  final double size;
-  final Color color;
-  PrimaryText(this.text,
-      {this.fontWeight = FontWeight.w600,
-      this.size = 16,
-      this.color = Colors.black87});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      '$text',
-      style: TextStyle(fontSize: size, fontWeight: fontWeight, color: color),
     );
   }
 }

@@ -1,11 +1,12 @@
+import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/home/utils/editProfile.dart';
 import 'package:chat_app_ui/home/utils/pickImage.dart';
 import 'package:chat_app_ui/home/utils/uploadPic.dart';
 import 'package:flutter/material.dart';
 
-dynamic profileImage;
-dynamic imageName;
-dynamic link;
+dynamic profileImage = '';
+dynamic imageName = '';
+dynamic link = userData['profilePic'];
 
 editProfileBioBox(BuildContext context) async {
   showDialog(
@@ -31,14 +32,12 @@ editProfileBioBox(BuildContext context) async {
             children: [
               GestureDetector(
                 onTap: () async {
-                  print(profileImage);
                   await pickImage();
-                  print(profileImage);
                 },
                 child: CircleAvatar(
                   backgroundColor: Colors.blueGrey[100],
                   backgroundImage:
-                      profileImage != null ? FileImage(profileImage) : null,
+                      profileImage != '' ? FileImage(profileImage) : null,
                   radius: 60,
                 ),
               ),
@@ -61,7 +60,10 @@ editProfileBioBox(BuildContext context) async {
         actions: <Widget>[
           ElevatedButton(
             onPressed: () async {
-              await uploadPic(imageName,profileImage);
+              print(imageName);
+              if (imageName != '') {
+                await uploadPic(imageName, profileImage);
+              }
               await editProfile(name.text, state.text, country.text, link);
               Navigator.pop(context);
             },

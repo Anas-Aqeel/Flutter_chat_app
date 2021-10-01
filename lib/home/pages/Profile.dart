@@ -1,4 +1,3 @@
-// import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
 import 'package:chat_app_ui/home/widgets/editBioBox.dart';
