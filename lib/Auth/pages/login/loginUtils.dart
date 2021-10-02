@@ -36,8 +36,8 @@ Future<dynamic> fetchUserData(String uid)async{
   }
 }
 
-Future<dynamic> handleUser(String email, String password)async{
-  return Future
+Future<void> handleUser(String email, String password)async{
+   Future
     .wait([login(email,password)])
     .then((List responses)=> responses)
     .catchError((e) => e);

@@ -55,6 +55,7 @@ class _FriendsState extends State<Friends> {
                           dp: snapshot.data!.docs[i]['profilePic'],
                           func: (){
                             generateChatRoomId(snapshot.data!.docs[i]['userId']);
+
                           },
                         );
                       });
@@ -99,7 +100,7 @@ class Header extends StatelessWidget {
                     PopupMenuItem(
                       child: GestureDetector(
                         onTap: (){
-                          Navigator.pushNamed(context, '/Chatter');
+                          // Navigator.pushNamed(context, '/Chatter');
                         },
                         child: Text("Second")),
                     )

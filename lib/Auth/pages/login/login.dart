@@ -65,6 +65,9 @@ class Login extends StatelessWidget {
                   MaterialButton(
                     color: Colors.deepPurple.shade600,
                     onPressed: () async {
+                      print(email.text);
+                      print(password.text);
+
                       await handleUser(email.text, password.text);
                      
                       

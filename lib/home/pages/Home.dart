@@ -1,4 +1,5 @@
 import 'package:chat_app_ui/Auth/authenticator.dart';
+import 'package:chat_app_ui/home/pages/ChatScreen.dart';
 import 'package:chat_app_ui/home/utils/signout.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
 import 'package:chat_app_ui/home/widgets/conversationBox.dart';
@@ -38,7 +39,9 @@ class _MyChatScreenState extends State<MyChatScreen> {
                       caption: userData['chats'][i]['email'],
                       txt: userData['chats'][i]['name'],
                       dp: userData['chats'][i]['profilePic'],
-                      func: () {},
+                      func: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Chatter(chatterId: userData['chats'][i]['userId'],)));
+                      },
                     );
                   }),
             ],
