@@ -1,4 +1,5 @@
 import 'package:chat_app_ui/Auth/authenticator.dart';
+import 'package:chat_app_ui/home/pages/ChatScreen.dart';
 import 'package:chat_app_ui/home/pages/Friends.dart';
 import 'package:chat_app_ui/home/pages/Profile.dart';
 import 'package:chat_app_ui/home/pages/Home.dart';
@@ -17,6 +18,7 @@ class Home extends StatelessWidget {
         '/AUTH' : (context)=> Authenticator(),
         '/FRIENDS': (context)=> Friends(),
         '/PROFILE': (context)=> Profile(),
+        '/Chatter': (context)=> Chatter(),
       },
       home: MyChatScreen(),
       debugShowCheckedModeBanner: false,

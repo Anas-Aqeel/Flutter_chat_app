@@ -97,7 +97,11 @@ class Header extends StatelessWidget {
                           child: Text("logout")),
                     ),
                     PopupMenuItem(
-                      child: Text("Second"),
+                      child: GestureDetector(
+                        onTap: (){
+                          Navigator.pushNamed(context, '/Chatter');
+                        },
+                        child: Text("Second")),
                     )
                   ])
         ]),
