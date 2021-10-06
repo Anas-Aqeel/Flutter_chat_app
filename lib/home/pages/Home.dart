@@ -40,7 +40,8 @@ class _MyChatScreenState extends State<MyChatScreen> {
                       txt: userData['chats'][i]['name'],
                       dp: userData['chats'][i]['profilePic'],
                       func: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Chatter(chatterId: userData['chats'][i]['userId'],)));
+                        print('this is home          ${userData['chats'][i]['chatRoomId']}');
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Chatter(chatterId: userData['chats'][i]['userId'],chatRoomId: userData['chats'][i]['chatRoomId'],)));
                       },
                     );
                   }),

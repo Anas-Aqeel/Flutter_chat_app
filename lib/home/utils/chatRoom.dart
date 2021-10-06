@@ -4,7 +4,7 @@ import 'package:chat_app_ui/Auth/authenticator.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 Future<void> generateChatRoomId(String userId) async {
-  var chatRoomId = '${userData["userId"]},$userId';
+  var chatRoomId = '${userData["userId"]}$userId';
   dynamic clientData = await firestore.collection('users').doc(userId).get();
   clientData = clientData.data();
   await firestore.collection('users').doc(userId).set({
@@ -24,18 +24,24 @@ Future<void> generateChatRoomId(String userId) async {
   await firestore.collection('chatRoom').doc(chatRoomId).set({
     "chatRoomId": chatRoomId,
     'userOneId': userId,
-    "userTwoId": userData['userId']
+    "userTwoId": userData['userId'],
+    "chats":[]
   });
   dynamic myUserData =
       await firestore.collection('users').doc(userData['userId']).get();
   userData = myUserData.data();
 }
 
-Future<void> getChatterProfile(String uid) async {
+Future<List> getChatterProfile(String uid,String chatRoomId) async {
   try {
-    var data = await firestore.collection('users').doc(uid).get();
-    chatter = data.data();
+    // var data = await firestore.collection('users').doc(uid).get();
+    // chatter = data.data();
+    DocumentSnapshot myChatRoom = await firestore.collection('chatRoom').doc(chatRoomId).get();
+    chatRoom = myChatRoom.data();
+
+    print('${[chatter,'hello \n', chatRoom]}');
+    return [chatter,'hello \n', chatRoom];
   } catch (e) {
-    print('the error is \n $e');
+    return['the error is \n $e'];
   }
 }

@@ -2,10 +2,12 @@ import 'package:chat_app_ui/home/utils/chatRoom.dart';
 import 'package:flutter/material.dart';
 
 dynamic chatter;
+dynamic chatRoom;
 
 class Chatter extends StatefulWidget {
   final chatterId;
-  Chatter({this.chatterId});
+  final chatRoomId;
+  Chatter({this.chatterId, this.chatRoomId});
 
   @override
   _ChatterState createState() => _ChatterState();
@@ -14,8 +16,8 @@ class Chatter extends StatefulWidget {
 class _ChatterState extends State<Chatter> {
   @override
   Widget build(BuildContext context) {
-    getChatterProfile(widget.chatterId).whenComplete(() => print('completed'));
-    print(chatter);
+    getChatterProfile(widget.chatterId,widget.chatRoomId).then((e) => e);
+
     // Future.wait([
     //   ]).then((value){
     //   chatter=value[0];
@@ -89,6 +91,11 @@ class _ChatterState extends State<Chatter> {
         child: Column(
           children: [
             Container(
+              child: ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: chatRoom['chats'].length, itemBuilder: (BuildContext context, int i){
+                return Text('${chatRoom['chats'][i]}');
+              }),
               height: MediaQuery.of(context).size.height - 162,
             ),
             Container(
@@ -117,6 +124,7 @@ class _ChatterState extends State<Chatter> {
                   SizedBox(
                     width: 15,
                   ),
+
                   Expanded(
                     child: TextField(
                       autofocus: true,
