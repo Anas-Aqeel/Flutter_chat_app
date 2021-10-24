@@ -1,4 +1,3 @@
-import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
@@ -29,8 +28,7 @@ Future<dynamic> fetchUserData(String uid)async{
   try {
     FirebaseFirestore db = FirebaseFirestore.instance;
     DocumentSnapshot client = await db.collection('users').doc(uid).get();
-    userData = client.data(); 
-    return 'user Fetched';
+    return client.data(); 
   } catch (e) {
     return 'the error is \n$e';
   }
@@ -43,11 +41,14 @@ Future<void> handleUser(String email, String password)async{
     .catchError((e) => e);
 }
 
-void getUserData(String uid){
-   print(Future
+Future getUserData(String uid){
+   return Future
     .wait([
      fetchUserData(uid)
     ])
-    .then((List responses) => responses)
-    .catchError((e) => e));
+    .then((List responses){
+      print(responses[0]);
+     return responses[0];
+      })
+    .catchError((e) => e);
 }

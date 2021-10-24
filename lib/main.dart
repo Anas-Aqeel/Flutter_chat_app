@@ -2,6 +2,8 @@ import 'package:chat_app_ui/Auth/authenticator.dart';
 // import 'package:chat_app_ui/home/chatScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -43,9 +45,10 @@ class _AppState extends State<App> {
         }
         return Scaffold(
           body: Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 1,
-            ),
+            child: SpinKitFadingCube(
+                       color: Colors.purple,
+                        size: 120.0,
+                      ),
           ),
         );
       },

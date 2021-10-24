@@ -27,10 +27,15 @@ class _AuthenticatorState extends State<Authenticator> {
           }
         } else {
           if (isAuthenticated != true) {
-            setState(() {
-              getUserData(user.uid);
+            
+              getUserData(user.uid).then((value) =>{
+                setState((){
+                  userData=value;
+                  isAuthenticated=true;
+                })
+              } );
               isAuthenticated = true;
-            });
+            
           }
         }
       });

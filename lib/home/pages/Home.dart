@@ -1,11 +1,12 @@
 import 'package:chat_app_ui/Auth/authenticator.dart';
-import 'package:chat_app_ui/home/pages/ChatScreen.dart';
+import 'package:chat_app_ui/home/pages/dashChat.dart';
 import 'package:chat_app_ui/home/utils/signout.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
 import 'package:chat_app_ui/home/widgets/conversationBox.dart';
 import 'package:chat_app_ui/home/widgets/searchBar.dart';
 import 'package:chat_app_ui/home/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MyChatScreen extends StatefulWidget {
   @override
@@ -13,7 +14,6 @@ class MyChatScreen extends StatefulWidget {
 }
 
 class _MyChatScreenState extends State<MyChatScreen> {
-  var itemCount = userData['chats'].length;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,21 +30,40 @@ class _MyChatScreenState extends State<MyChatScreen> {
               SizedBox(
                 height: 5,
               ),
-              ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: itemCount,
-                  itemBuilder: (BuildContext context, int i) {
-                    return ConversationBox(
-                      caption: userData['chats'][i]['email'],
-                      txt: userData['chats'][i]['name'],
-                      dp: userData['chats'][i]['profilePic'],
-                      func: () {
-                        print('this is home          ${userData['chats'][i]['chatRoomId']}');
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=> Chatter(chatterId: userData['chats'][i]['userId'],chatRoomId: userData['chats'][i]['chatRoomId'],)));
-                      },
-                    );
-                  }),
+              userData == null
+                  ? Center(
+                      child: SpinKitFadingCube(
+                        itemBuilder: (_, int index) {
+                          return DecoratedBox(
+                            decoration: BoxDecoration(
+                              color: index.isEven ? Colors.red : Colors.green,
+                            ),
+                          );
+                        },
+                        size: 120.0,
+                      ),
+                    )
+                  : ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: userData['chats'].length,
+                      itemBuilder: (BuildContext context, int i) {
+                        return ConversationBox(
+                          caption: userData['chats'][i]['chatterEmail'],
+                          txt: userData['chats'][i]['chatterName'],
+                          dp: userData['chats'][i]['chatterDp'],
+                          func: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyDashChat(
+                                          userData['chats'][i]['chatRoomId'],
+                                          userData['chats'][i]['id'],
+                                          userData['chats'][i]['chatterName'],
+                                        )));
+                          },
+                        );
+                      }),
             ],
           ),
         ),
