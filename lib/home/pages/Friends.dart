@@ -54,7 +54,10 @@ class _FriendsState extends State<Friends> {
                           txt: snapshot.data!.docs[i]['name'],
                           dp: snapshot.data!.docs[i]['profilePic'],
                           func: (){
+                            if(snapshot.data!.docs[i]['userId'] != userData['userId] ){
                             generateChatRoomId(snapshot.data!.docs[i]['userId']);
+                            }
+                            
 
                           },
                         );
