@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:path/path.dart' as path;
 
 import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -91,7 +92,7 @@ class _MyDashChatState extends State<MyDashChat> {
       });
     } else {
       systemMessage();
-    } 
+    }
   }
 
   @override
@@ -124,6 +125,7 @@ class _MyDashChatState extends State<MyDashChat> {
                 key: _chatViewKey,
                 inverted: false,
                 sendOnEnter: true,
+                
                 textInputAction: TextInputAction.send,
                 user: user,
                 inputDecoration:
@@ -195,14 +197,12 @@ class _MyDashChatState extends State<MyDashChat> {
                       );
 
                       if (result != null) {
+                        var imageName = path.basename(result.path);
                         final Reference storageRef =
-                            FirebaseStorage.instance.ref().child("chat_images");
+                            FirebaseStorage.instance.ref('$imageName');
 
                         final taskSnapshot = await storageRef.putFile(
                           File(result.path),
-                          SettableMetadata(
-                            contentType: 'image/jpg',
-                          ),
                         );
 
                         String url = await taskSnapshot.ref.getDownloadURL();
