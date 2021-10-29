@@ -1,3 +1,4 @@
+import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/home/utils/chatRoom.dart';
 import 'package:chat_app_ui/home/utils/signout.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
@@ -54,8 +55,11 @@ class _FriendsState extends State<Friends> {
                           txt: snapshot.data!.docs[i]['name'],
                           dp: snapshot.data!.docs[i]['profilePic'],
                           func: (){
-                            if(snapshot.data!.docs[i]['userId'] != userData['userId] ){
+                            if(snapshot.data!.docs[i]['userId'] != userData['userId'] ){
                             generateChatRoomId(snapshot.data!.docs[i]['userId']);
+                          
+                            }else{
+                              print('You cannot add your self');
                             }
                             
 
