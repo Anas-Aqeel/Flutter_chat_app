@@ -54,20 +54,26 @@ class _FriendsState extends State<Friends> {
                           caption: snapshot.data!.docs[i]['email'],
                           txt: snapshot.data!.docs[i]['name'],
                           dp: snapshot.data!.docs[i]['profilePic'],
-                          func: (){
-<<<<<<< HEAD
-                            if(snapshot.data!.docs[i]['userId'] != userData['userId'] ){
-                            generateChatRoomId(snapshot.data!.docs[i]['userId']);
-                          
-                            }else{
+                          func: () {
+                            
+                            var condition = false;
+                            userData['chats'].map((e) {
+                              if (e['id'] == snapshot.data!.docs[i]['userId']) {
+                                condition = false;
+                              } else {
+                                condition = true;
+                              }
+                            });
+                            if (snapshot.data!.docs[i]['userId'] !=
+                                    userData['userId'] &&
+                                condition) {
+                              generateChatRoomId(
+                                  snapshot.data!.docs[i]['userId']);
+                            } else {
                               print('You cannot add your self');
                             }
-=======
-                            generateChatRoomId(snapshot.data!.docs[i]['userId']);
->>>>>>> a4d7746f8cd73e24da0d3ba7bf380e5649e1091f
-                            
-
                           },
+                          
                         );
                       });
                 },
@@ -110,10 +116,10 @@ class Header extends StatelessWidget {
                     ),
                     PopupMenuItem(
                       child: GestureDetector(
-                        onTap: (){
-                          // Navigator.pushNamed(context, '/Chatter');
-                        },
-                        child: Text("Second")),
+                          onTap: () {
+                            // Navigator.pushNamed(context, '/Chatter');
+                          },
+                          child: Text("Second")),
                     )
                   ])
         ]),

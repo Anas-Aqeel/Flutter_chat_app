@@ -1,5 +1,6 @@
 // import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/Auth/pages/signup/signupUtils.dart';
+import 'package:chat_app_ui/home/widgets/inputfield.dart';
 import 'package:flutter/material.dart';
 
 class Signup extends StatelessWidget {
@@ -88,32 +89,3 @@ class Signup extends StatelessWidget {
   }
 }
 
-class MyInputField extends StatelessWidget {
-  final type;
-  final name;
-  final icon;
-  MyInputField({this.type, this.icon, this.name});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.symmetric(horizontal: 60),
-        child: TextField(
-          controller: name,
-          style: TextStyle(fontSize: 20),
-          decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.grey.shade200,
-              hintText: '$type',
-              hintStyle: TextStyle(fontSize: 19, color: Colors.black54),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(right: 10),
-                child: Icon(
-                  icon,
-                  size: 28,
-                  color: Colors.deepPurple[700],
-                ),
-              ),
-              border: InputBorder.none),
-        ));
-  }
-}
