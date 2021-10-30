@@ -54,8 +54,12 @@ class _FriendsState extends State<Friends> {
                           caption: snapshot.data!.docs[i]['email'],
                           txt: snapshot.data!.docs[i]['name'],
                           dp: snapshot.data!.docs[i]['profilePic'],
+<<<<<<< HEAD
                           func: () {
                             
+=======
+                          func: (){
+>>>>>>> 5785f08bc78e45f2f21fa660adcc474f852f8c20
                             var condition = false;
                             userData['chats'].map((e) {
                               if (e['id'] == snapshot.data!.docs[i]['userId']) {
@@ -64,6 +68,7 @@ class _FriendsState extends State<Friends> {
                                 condition = true;
                               }
                             });
+<<<<<<< HEAD
                             if (snapshot.data!.docs[i]['userId'] !=
                                     userData['userId'] &&
                                 condition) {
@@ -72,6 +77,17 @@ class _FriendsState extends State<Friends> {
                             } else {
                               print('You cannot add your self');
                             }
+=======
+                            if(snapshot.data!.docs[i]['userId'] != userData['userId']&& condition ){
+                            generateChatRoomId(snapshot.data!.docs[i]['userId']);
+                          
+                            }else{
+                              print('You cannot add your self');
+                            }
+
+                            
+
+>>>>>>> 5785f08bc78e45f2f21fa660adcc474f852f8c20
                           },
                           
                         );
