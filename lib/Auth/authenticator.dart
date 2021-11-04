@@ -1,5 +1,6 @@
 import 'package:chat_app_ui/Auth/pages/login/loginUtils.dart';
 import 'package:chat_app_ui/Auth/pages/saperator.dart';
+import 'package:chat_app_ui/home/widgets/loader.dart';
 // import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chat_app_ui/home/home.dart';
@@ -56,9 +57,7 @@ class _AuthenticatorState extends State<Authenticator> {
     } else {
       return Scaffold(
         body: Center(
-          child: CircularProgressIndicator(
-            strokeWidth: 1,
-          ),
+          child: MyLoader(),
         ),
       );
     }

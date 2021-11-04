@@ -23,7 +23,9 @@ class AddButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, '/PROFILE');
+      },
       elevation: 0,
       highlightColor: Colors.pink[100],
       shape: StadiumBorder(),

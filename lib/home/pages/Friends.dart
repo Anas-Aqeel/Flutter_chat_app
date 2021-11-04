@@ -3,10 +3,13 @@ import 'package:chat_app_ui/home/utils/chatRoom.dart';
 import 'package:chat_app_ui/home/utils/signout.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
 import 'package:chat_app_ui/home/widgets/conversationBox.dart';
+import 'package:chat_app_ui/home/widgets/loader.dart';
 import 'package:chat_app_ui/home/widgets/searchBar.dart';
 import 'package:chat_app_ui/home/widgets/widgets.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+
+List data = [];
 
 class Friends extends StatefulWidget {
   @override
@@ -41,25 +44,21 @@ class _FriendsState extends State<Friends> {
                   }
 
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator(
-                      strokeWidth: 1,
-                    );
+                    return MyLoader();
                   }
+                  
+                          data = snapshot.data!.docs;
                   return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int i) {
+                        
                         return ConversationBox(
-                          caption: snapshot.data!.docs[i]['email'],
-                          txt: snapshot.data!.docs[i]['name'],
-                          dp: snapshot.data!.docs[i]['profilePic'],
-<<<<<<< HEAD
+                          caption: data[i]['email'],
+                          txt: data[i]['name'],
+                          dp: data[i]['profilePic'],
                           func: () {
-                            
-=======
-                          func: (){
->>>>>>> 5785f08bc78e45f2f21fa660adcc474f852f8c20
                             var condition = false;
                             userData['chats'].map((e) {
                               if (e['id'] == snapshot.data!.docs[i]['userId']) {
@@ -68,7 +67,7 @@ class _FriendsState extends State<Friends> {
                                 condition = true;
                               }
                             });
-<<<<<<< HEAD
+
                             if (snapshot.data!.docs[i]['userId'] !=
                                     userData['userId'] &&
                                 condition) {
@@ -77,19 +76,16 @@ class _FriendsState extends State<Friends> {
                             } else {
                               print('You cannot add your self');
                             }
-=======
-                            if(snapshot.data!.docs[i]['userId'] != userData['userId']&& condition ){
-                            generateChatRoomId(snapshot.data!.docs[i]['userId']);
-                          
-                            }else{
+
+                            if (snapshot.data!.docs[i]['userId'] !=
+                                    userData['userId'] &&
+                                condition) {
+                              generateChatRoomId(
+                                  snapshot.data!.docs[i]['userId']);
+                            } else {
                               print('You cannot add your self');
                             }
-
-                            
-
->>>>>>> 5785f08bc78e45f2f21fa660adcc474f852f8c20
                           },
-                          
                         );
                       });
                 },
@@ -126,17 +122,18 @@ class Header extends StatelessWidget {
                       child: GestureDetector(
                           onTap: () {
                             signOut();
-                            Navigator.pushNamed(context, '/AUTH');
+                            Navigator.pushNamed(context, '/PROFILE');
                           },
-                          child: Text("logout")),
+                          child: Text("Profile")),
                     ),
                     PopupMenuItem(
                       child: GestureDetector(
                           onTap: () {
-                            // Navigator.pushNamed(context, '/Chatter');
+                            signOut();
+                            Navigator.pushNamed(context, '/AUTH');
                           },
-                          child: Text("Second")),
-                    )
+                          child: Text("logout")),
+                    ),
                   ])
         ]),
       ],

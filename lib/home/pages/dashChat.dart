@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:chat_app_ui/home/widgets/loader.dart';
 import 'package:path/path.dart' as path;
 
 import 'package:chat_app_ui/Auth/authenticator.dart';
@@ -73,13 +74,18 @@ class _MyDashChatState extends State<MyDashChat> {
   }
 
   void onSend(ChatMessage message) {
-    print(message.toJson());
+    Map<String,dynamic> myMessage = message.toJson();
+    if (myMessage['image'] == '') {
+      myMessage.remove('image');
+    }
+    print(myMessage);
+
     FirebaseFirestore.instance
         .collection('chatRoom')
         .doc(myChatRoomId)
         .collection('messages')
         .doc(DateTime.now().millisecondsSinceEpoch.toString())
-        .set(message.toJson());
+        .set(myMessage);
     setState(() {
       messages = [...messages, message];
       print(messages.length);
@@ -111,7 +117,7 @@ class _MyDashChatState extends State<MyDashChat> {
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return Center(
-                child: CircularProgressIndicator(),
+                child: MyLoader(),
               );
             } else {
               List<DocumentSnapshot> items = snapshot.data!.docs;
@@ -128,7 +134,8 @@ class _MyDashChatState extends State<MyDashChat> {
                 
                 textInputAction: TextInputAction.send,
                 user: user,
-                quickReplyBuilder: (context){
+                quickReplyBuilder: (reply){
+                  print(reply);
                   return Text('data');
                 },
                 onQuickReply: (Reply reply) {

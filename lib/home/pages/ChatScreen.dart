@@ -1,5 +1,6 @@
 import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/home/utils/chatRoom.dart';
+import 'package:chat_app_ui/home/widgets/loader.dart';
 import 'package:flutter/material.dart';
 
 dynamic chatter;
@@ -28,9 +29,7 @@ class _ChatterState extends State<Chatter> {
     return chatter == null
         ? Scaffold(
             body: Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 1,
-              ),
+              child: MyLoader(),
             ),
           )
         : Scaffold(

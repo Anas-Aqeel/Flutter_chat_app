@@ -93,6 +93,12 @@ class Header extends StatelessWidget {
               ),
               itemBuilder: (context) => [
                     PopupMenuItem(
+                      onTap:(){
+                         Navigator.pushNamed(context, '/PROFILE');
+                      },
+                      child: Text("profile"),
+                    ),
+                    PopupMenuItem(
                       child: GestureDetector(
                           onTap: () {
                             signOut();
@@ -100,9 +106,6 @@ class Header extends StatelessWidget {
                           },
                           child: Text("logout")),
                     ),
-                    PopupMenuItem(
-                      child: Text("Second"),
-                    )
                   ])
         ]),
       ],
