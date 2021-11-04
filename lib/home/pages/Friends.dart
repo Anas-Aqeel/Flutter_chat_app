@@ -46,14 +46,13 @@ class _FriendsState extends State<Friends> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return MyLoader();
                   }
-                  
-                          data = snapshot.data!.docs;
+
+                  data = snapshot.data!.docs;
                   return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (BuildContext context, int i) {
-                        
                         return ConversationBox(
                           caption: data[i]['email'],
                           txt: data[i]['name'],
@@ -62,9 +61,13 @@ class _FriendsState extends State<Friends> {
                             var condition = false;
                             userData['chats'].map((e) {
                               if (e['id'] == snapshot.data!.docs[i]['userId']) {
-                                condition = false;
+                                setState(() {
+                                  condition = false;
+                                });
                               } else {
-                                condition = true;
+                                setState(() {
+                                  condition = true;
+                                });
                               }
                             });
 
@@ -76,8 +79,6 @@ class _FriendsState extends State<Friends> {
                             } else {
                               print('You cannot add your self');
                             }
-
-                           
                           },
                         );
                       });
