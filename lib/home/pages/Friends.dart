@@ -55,19 +55,10 @@ class _FriendsState extends State<Friends> {
                       itemBuilder: (BuildContext context, int i) {
                         
                         return ConversationBox(
-<<<<<<< HEAD
                           caption: data[i]['email'],
                           txt: data[i]['name'],
                           dp: data[i]['profilePic'],
                           func: () {
-=======
-                          caption: snapshot.data!.docs[i]['email'],
-                          txt: snapshot.data!.docs[i]['name'],
-                          dp: snapshot.data!.docs[i]['profilePic'],
-
-                          func: (){
-
->>>>>>> 8a06f10808b1fe34dbd6a98bbe2f1813f84ebd15
                             var condition = false;
                             userData['chats'].map((e) {
                               if (e['id'] == snapshot.data!.docs[i]['userId']) {
@@ -86,21 +77,7 @@ class _FriendsState extends State<Friends> {
                               print('You cannot add your self');
                             }
 
-<<<<<<< HEAD
-                            if (snapshot.data!.docs[i]['userId'] !=
-                                    userData['userId'] &&
-                                condition) {
-                              generateChatRoomId(
-                                  snapshot.data!.docs[i]['userId']);
-                            } else {
-                              print('You cannot add your self');
-                            }
-=======
-
-                            
-
-
->>>>>>> 8a06f10808b1fe34dbd6a98bbe2f1813f84ebd15
+                           
                           },
                         );
                       });
