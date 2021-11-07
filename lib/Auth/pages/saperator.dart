@@ -81,8 +81,8 @@ class MyButton extends StatelessWidget {
       child: Text('$txt', style: TextStyle(color: txtColor, fontSize: 15)),
       minWidth: 260,
       height: 50,
-      shape:
-          StadiumBorder(side: BorderSide(width: 1, color: Colors.deepPurple)),
+      // shape:
+      //    border Border(side: BorderSide(width: 1, color: Colors.deepPurple)),
     );
   }
 }

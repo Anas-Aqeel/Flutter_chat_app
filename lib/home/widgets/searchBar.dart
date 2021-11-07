@@ -11,7 +11,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-        onChanged: (e) async {
+        onFieldSubmitted: (e) async {
           List results = [];
           FirebaseFirestore.instance
               .collection("users")
@@ -20,19 +20,16 @@ class _SearchBarState extends State<SearchBar> {
             querySnapshot.docs.forEach((doc) {
               dynamic name = doc['name'];
               if (name == e) {
-                print('successful');
                 setState(() {
-
-
-                  results.add(doc.data());
+                  results.add(doc);
                 });
+                
               }
             });
             setState(() {
               print('object');
               data = results;
             });
-            // print(data);
           });
           print(e);
         },

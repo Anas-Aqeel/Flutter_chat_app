@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:io';
 import 'package:chat_app_ui/home/widgets/loader.dart';
 import 'package:path/path.dart' as path;
@@ -53,25 +52,25 @@ class _MyDashChatState extends State<MyDashChat> {
     super.initState();
   }
 
-  void systemMessage() {
-    Timer(Duration(milliseconds: 300), () {
-      if (i < 6) {
-        setState(() {
-          messages = [...messages, m[i]];
-        });
-        i++;
-      }
-      Timer(Duration(milliseconds: 300), () {
-        _chatViewKey.currentState!.scrollController
-          ..animateTo(
-            _chatViewKey
-                .currentState!.scrollController.position.maxScrollExtent,
-            curve: Curves.easeOut,
-            duration: const Duration(milliseconds: 300),
-          );
-      });
-    });
-  }
+  // void systemMessage() {
+  //   Timer(Duration(milliseconds: 300), () {
+  //     if (i < 6) {
+  //       setState(() {
+  //         messages = [...messages, m[i]];
+  //       });
+  //       i++;
+  //     }
+  //     Timer(Duration(milliseconds: 300), () {
+  //       _chatViewKey.currentState!.scrollController
+  //         ..animateTo(
+  //           _chatViewKey
+  //               .currentState!.scrollController.position.maxScrollExtent,
+  //           curve: Curves.easeOut,
+  //           duration: const Duration(milliseconds: 300),
+  //         );
+  //     });
+  //   });
+  // }
 
   void onSend(ChatMessage message) {
     Map<String,dynamic> myMessage = message.toJson();
@@ -91,14 +90,14 @@ class _MyDashChatState extends State<MyDashChat> {
       print(messages.length);
     });
 
-    if (i == 0) {
-      systemMessage();
-      Timer(Duration(milliseconds: 600), () {
-        systemMessage();
-      });
-    } else {
-      systemMessage();
-    }
+    // if (i == 0) {
+    //   // systemMessage();
+    //   Timer(Duration(milliseconds: 600), () {
+    //     // systemMessage();
+    //   });
+    // } else {
+    //   // systemMessage();
+    // }
   }
 
   @override
@@ -148,24 +147,24 @@ class _MyDashChatState extends State<MyDashChat> {
                     messages = [...messages];
                   });
 
-                  Timer(Duration(milliseconds: 300), () {
-                    _chatViewKey.currentState!.scrollController
-                      ..animateTo(
-                        _chatViewKey.currentState!.scrollController.position
-                            .maxScrollExtent,
-                        curve: Curves.easeOut,
-                        duration: const Duration(milliseconds: 300),
-                      );
+                  // Timer(Duration(milliseconds: 300), () {
+                  //   _chatViewKey.currentState!.scrollController
+                  //     ..animateTo(
+                  //       _chatViewKey.currentState!.scrollController.position
+                  //           .maxScrollExtent,
+                  //       curve: Curves.easeOut,
+                  //       duration: const Duration(milliseconds: 300),
+                  //     );
 
-                    if (i == 0) {
-                      systemMessage();
-                      Timer(Duration(milliseconds: 600), () {
-                        systemMessage();
-                      });
-                    } else {
-                      systemMessage();
-                    }
-                  });
+                  //   if (i == 0) {
+                  //     // systemMessage();
+                  //     Timer(Duration(milliseconds: 600), () {
+                  //       // systemMessage();
+                  //     });
+                  //   } else {
+                  //     // systemMessage();
+                  //   }
+                  // });
                 },
                 onLoadEarlier: () {
                   print("laoding...");

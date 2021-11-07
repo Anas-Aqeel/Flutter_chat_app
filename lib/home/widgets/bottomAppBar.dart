@@ -14,10 +14,10 @@ class MyBottomAppBar extends StatelessWidget {
           case 0:
             Navigator.pushNamed(context, '/CHATS');
             break;
-          case 1:
+          case 2:
             Navigator.pushNamed(context, '/FRIENDS');
             break;
-          case 2:
+          case 3:
             Navigator.pushNamed(context, '/PROFILE');
             break;
           default:
@@ -27,6 +27,10 @@ class MyBottomAppBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: Icon(Icons.message),
           label: "Chats",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.group),
+          label: "Groups",
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.account_circle),

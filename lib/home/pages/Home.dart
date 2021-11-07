@@ -1,8 +1,10 @@
 import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:chat_app_ui/home/pages/dashChat.dart';
 import 'package:chat_app_ui/home/utils/signout.dart';
+import 'package:chat_app_ui/home/widgets/ChatListViewItem.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
 import 'package:chat_app_ui/home/widgets/conversationBox.dart';
+import 'package:chat_app_ui/home/widgets/drawer.dart';
 import 'package:chat_app_ui/home/widgets/searchBar.dart';
 import 'package:chat_app_ui/home/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,33 @@ class _MyChatScreenState extends State<MyChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: MyDrawer(),
+      appBar: AppBar(
+        title: Text(
+          "Home Page",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        elevation: 0.5,
+        iconTheme: IconThemeData(color: Colors.white),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(
+              right: 16,
+            ),
+            child: Icon(Icons.settings),
+          )
+        ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                Theme.of(context).primaryColor,
+                Theme.of(context).colorScheme.secondary,
+              ])),
+        ),
+      ),
       body: SafeArea(
         child: Container(
           padding: EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -32,7 +61,7 @@ class _MyChatScreenState extends State<MyChatScreen> {
               ),
               userData == null
                   ? Center(
-                      child: SpinKitFadingCube(
+                      child: SpinKitCircle(
                         itemBuilder: (_, int index) {
                           return DecoratedBox(
                             decoration: BoxDecoration(
@@ -48,11 +77,11 @@ class _MyChatScreenState extends State<MyChatScreen> {
                       shrinkWrap: true,
                       itemCount: userData['chats'].length,
                       itemBuilder: (BuildContext context, int i) {
-                        return ConversationBox(
-                          caption: userData['chats'][i]['chatterEmail'],
-                          txt: userData['chats'][i]['chatterName'],
-                          dp: userData['chats'][i]['chatterDp'],
-                          func: () {
+                        return ChatListViewItem(
+                          lastMessage: userData['chats'][i]['chatterEmail'],
+                          name: userData['chats'][i]['chatterName'],
+                          image: userData['chats'][i]['chatterDp'],
+                          function: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -62,6 +91,9 @@ class _MyChatScreenState extends State<MyChatScreen> {
                                           userData['chats'][i]['chatterName'],
                                         )));
                           },
+                          hasUnreadMessage: true,
+                          newMesssageCount: 2,
+                          time: '19 :27',
                         );
                       }),
             ],
@@ -93,8 +125,8 @@ class Header extends StatelessWidget {
               ),
               itemBuilder: (context) => [
                     PopupMenuItem(
-                      onTap:(){
-                         Navigator.pushNamed(context, '/PROFILE');
+                      onTap: () {
+                        Navigator.pushNamed(context, '/PROFILE');
                       },
                       child: Text("profile"),
                     ),

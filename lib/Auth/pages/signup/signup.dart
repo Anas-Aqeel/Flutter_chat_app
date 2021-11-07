@@ -3,9 +3,16 @@ import 'package:chat_app_ui/Auth/pages/signup/signupUtils.dart';
 import 'package:chat_app_ui/home/widgets/inputfield.dart';
 import 'package:flutter/material.dart';
 
-class Signup extends StatelessWidget {
+class Signup extends StatefulWidget {
+  @override
+  State<Signup> createState() => _SignupState();
+}
+
+class _SignupState extends State<Signup> {
   final TextEditingController name = TextEditingController();
+
   final TextEditingController email = TextEditingController();
+
   final TextEditingController password = TextEditingController();
 
   @override

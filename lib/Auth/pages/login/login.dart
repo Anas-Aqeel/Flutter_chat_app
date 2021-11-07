@@ -21,8 +21,14 @@ import 'package:flutter/material.dart';
 //       },
 //     );
 //   }
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final TextEditingController email = TextEditingController();
+
   final TextEditingController password = TextEditingController();
 
   @override
@@ -64,14 +70,11 @@ class Login extends StatelessWidget {
                   ),
                   SizedBox(height: 45),
                   MaterialButton(
-                    color: Colors.deepPurple.shade600,
+                    color: Colors.black,
                     onPressed: () async {
                       print(email.text);
                       print(password.text);
-
                       await handleUser(email.text, password.text);
-                     
-                      
                     },
                     child: Text('LOGIN',
                         style: TextStyle(color: Colors.white, fontSize: 15)),
@@ -103,24 +106,24 @@ class Login extends StatelessWidget {
 
 
 
-class MyButton extends StatelessWidget {
-  final txt;
-  final txtColor;
-  final bgColor;
-  MyButton({this.txt, this.bgColor, this.txtColor});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialButton(
-      color: bgColor,
-      onPressed: () {
-        print('/$txt');
-        Navigator.pushNamed(context, '/$txt');
-      },
-      child: Text('$txt', style: TextStyle(color: txtColor, fontSize: 15)),
-      minWidth: 260,
-      height: 50,
-      shape:
-          StadiumBorder(side: BorderSide(width: 1, color: Colors.deepPurple)),
-    );
-  }
-}
+// class MyButton extends StatelessWidget {
+//   final txt;
+//   final txtColor;
+//   final bgColor;
+//   MyButton({this.txt, this.bgColor, this.txtColor});
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialButton(
+//       color: bgColor,
+//       onPressed: () {
+//         print('/$txt');
+//         Navigator.pushNamed(context, '/$txt');
+//       },
+//       child: Text('$txt', style: TextStyle(color: txtColor, fontSize: 15)),
+//       minWidth: 260,
+//       height: 50,
+//       shape:
+//           StadiumBorder(side: BorderSide(width: 1, color: Colors.deepPurple)),
+//     );
+//   }
+// }

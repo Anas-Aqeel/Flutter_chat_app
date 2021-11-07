@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chat_app_ui/home/home.dart';
 import 'package:flutter/material.dart';
 
+
 var isAuthenticated;
 dynamic userData;
 
@@ -45,7 +46,10 @@ class _AuthenticatorState extends State<Authenticator> {
     }
 
     if (isAuthenticated != null) {
+
       return MaterialApp(
+        
+        
         title: 'Flutter Demo',
         routes: {
           '/Auth': (context) => MaterialAuth(),

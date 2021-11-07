@@ -4,7 +4,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-
 void main() {
   runApp(MyApp());
 }
@@ -35,20 +34,18 @@ class _AppState extends State<App> {
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Scaffold(
-        body: Center(
-          child: Text("Error")
-        ),
-      );
+            body: Center(child: Text("Error")),
+          );
         }
         if (snapshot.connectionState == ConnectionState.done) {
           return Authenticator();
         }
         return Scaffold(
           body: Center(
-            child: SpinKitFadingCube(
-                       color: Colors.purple,
-                        size: 120.0,
-                      ),
+            child: SpinKitCircle(
+              color: Colors.purple,
+              size: 120.0,
+            ),
           ),
         );
       },

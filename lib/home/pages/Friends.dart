@@ -3,6 +3,7 @@ import 'package:chat_app_ui/home/utils/chatRoom.dart';
 import 'package:chat_app_ui/home/utils/signout.dart';
 import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
 import 'package:chat_app_ui/home/widgets/conversationBox.dart';
+import 'package:chat_app_ui/home/widgets/drawer.dart';
 import 'package:chat_app_ui/home/widgets/loader.dart';
 import 'package:chat_app_ui/home/widgets/searchBar.dart';
 import 'package:chat_app_ui/home/widgets/widgets.dart';
@@ -22,7 +23,35 @@ class _FriendsState extends State<Friends> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       drawer: MyDrawer(),
+      appBar: AppBar(
+        title: Text(
+          "Home Page",
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        elevation: 0.5,
+        iconTheme: IconThemeData(color: Colors.white),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(
+              right: 16,
+            ),
+            child: Icon(Icons.settings),
+          )
+        ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: <Color>[
+                Theme.of(context).primaryColor,
+                Theme.of(context).colorScheme.secondary,
+              ])),
+        ),
+      ),
       body: SafeArea(
+
         child: Container(
           padding: EdgeInsets.only(top: 20, left: 20, right: 20),
           child: ListView(
@@ -51,27 +80,35 @@ class _FriendsState extends State<Friends> {
                   return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
-                      itemCount: snapshot.data!.docs.length,
+                      itemCount: data.length,
                       itemBuilder: (BuildContext context, int i) {
                         return ConversationBox(
                           caption: data[i]['email'],
                           txt: data[i]['name'],
                           dp: data[i]['profilePic'],
                           func: () {
-                            var condition = false;
-                            userData['chats'].map((e) {
-                              if (e['id'] == snapshot.data!.docs[i]['userId']) {
+                            var condition = true;
+                            for (var e in userData['chats']) {
+                              print(e);
+                              if (e['id'] == data[i]['userId']) {
                                 setState(() {
                                   condition = false;
                                 });
-                              } else {
+                                break;
+                              
+                              } else if(e['id'] != data[i]['userId']){
+
+                                if (!condition) {
                                 setState(() {
                                   condition = true;
                                 });
+                                  break;
+                                }
                               }
-                            });
+                            }
+                           
 
-                            if (snapshot.data!.docs[i]['userId'] !=
+                            if (data[i]['userId'] !=
                                     userData['userId'] &&
                                 condition) {
                               generateChatRoomId(
