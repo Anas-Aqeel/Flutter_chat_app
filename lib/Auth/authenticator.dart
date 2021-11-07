@@ -5,6 +5,10 @@ import 'package:chat_app_ui/home/widgets/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chat_app_ui/home/home.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+
+    Color primaryColor = HexColor('#0a0a0a');
+    Color accentColor = HexColor('#001433');
 
 
 var isAuthenticated;
@@ -49,7 +53,12 @@ class _AuthenticatorState extends State<Authenticator> {
 
       return MaterialApp(
         
-        
+         theme: ThemeData(
+        primaryColor: primaryColor,
+        scaffoldBackgroundColor: Colors.grey.shade100,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
+            .copyWith(secondary: accentColor),
+      ),
         title: 'Flutter Demo',
         routes: {
           '/Auth': (context) => MaterialAuth(),

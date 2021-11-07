@@ -11,6 +11,12 @@ class MaterialAuth extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: MyDivider(),
+       theme: ThemeData(
+        primaryColor: primaryColor,
+        scaffoldBackgroundColor: Colors.grey.shade100,
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)
+            .copyWith(secondary: accentColor),
+      ),
       routes: {
         '/LOGIN': (context) => Login(),
         '/SIGNUP': (context) => Signup(),
@@ -34,30 +40,32 @@ class MyDivider extends StatelessWidget {
             Icon(
               Icons.textsms,
               size: 120,
-              color: Colors.deepPurple[900],
+
+              color: primaryColor,
             ),
+            
             SizedBox(height: 10),
             Text('FireChat',
                 style: TextStyle(
-                    color: Colors.deepPurple[900],
+                    color: primaryColor,
                     fontSize: 27,
                     fontWeight: FontWeight.w900)),
             SizedBox(height: 10),
             Text('WORLD MOST PRIVATE CHATTING APP',
                 style: TextStyle(
-                    color: Colors.deepPurple[900],
+                    color: primaryColor,
                     fontSize: 13,
                     fontWeight: FontWeight.w500)),
             SizedBox(height: 140),
             MyButton(
                 txt: 'LOGIN',
-                txtColor: Colors.deepPurple,
+                txtColor: accentColor,
                 bgColor: Colors.white),
             SizedBox(height: 10),
             MyButton(
                 txt: 'SIGNUP',
                 txtColor: Colors.white,
-                bgColor: Colors.deepPurple.shade600),
+                bgColor: accentColor),
           ],
         ),
       ),
@@ -74,6 +82,9 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialButton(
       color: bgColor,
+      shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                        ),
       onPressed: () {
         print('/$txt');
         Navigator.pushNamed(context, '/$txt');

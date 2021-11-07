@@ -1,7 +1,7 @@
 import 'package:chat_app_ui/Auth/authenticator.dart';
+import 'package:chat_app_ui/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 
 class MyDrawer extends StatelessWidget {
   // const MyDrawer({ Key? key }) : super(key: key);
@@ -45,13 +45,13 @@ class MyDrawer extends StatelessWidget {
                     ),
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.person,
-                        size: 70,
-                        color: Colors.grey.shade200,
-                      ),
-                      backgroundImage:
-                          NetworkImage('${userData['profilePic']}'),
+                      child: platform
+                          ? Icon(
+                              Icons.person,
+                              size: 70,
+                              color: Colors.grey.shade200,
+                            )
+                          : Image.network('${userData['profilePic']}'),
                     ),
                   ),
                   accountName: Text('Anas Aqeel'),

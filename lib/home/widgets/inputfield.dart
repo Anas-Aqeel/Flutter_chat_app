@@ -1,3 +1,4 @@
+import 'package:chat_app_ui/Auth/authenticator.dart';
 import 'package:flutter/material.dart';
 
 class MyInputField extends StatefulWidget {
@@ -14,7 +15,7 @@ class _MyInputFieldState extends State<MyInputField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 60),
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: TextFormField(
           onSaved: (e) {
             setState(() {
@@ -37,11 +38,11 @@ class _MyInputFieldState extends State<MyInputField> {
               hintText: '${widget.type}',
               hintStyle: TextStyle(fontSize: 19, color: Colors.black54),
               prefixIcon: Padding(
-                padding: const EdgeInsets.only(right: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Icon(
                   widget.icon,
                   size: 28,
-                  color: Colors.deepPurple[700],
+                  color: accentColor,
                 ),
               ),
               border: InputBorder.none),

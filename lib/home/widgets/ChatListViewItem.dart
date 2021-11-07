@@ -1,3 +1,4 @@
+import 'package:chat_app_ui/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 // import 'package:simple_chat_application/Global/Colors.dart' as myColors;
@@ -45,23 +46,20 @@ class ChatListViewItem extends StatelessWidget {
                   ),
                   leading: CircleAvatar(
                       backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.person,
-                        size: 30,
-                        color: Colors.grey.shade200,
-                      ),
-                      backgroundImage:
-                          NetworkImage('$image'),
+                      child: platform
+                          ? Icon(
+                              Icons.person,
+                              size: 35,
+                              color: Colors.grey.shade200,
+                            )
+                          : Image.network('$image'),
                     
                   ),
                   trailing: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        time,
-                        style: TextStyle(fontSize: 12),
-                      ),
+                      time,
                       hasUnreadMessage
                           ? Container(
                               margin: const EdgeInsets.only(top: 5.0),

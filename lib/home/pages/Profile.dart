@@ -1,4 +1,6 @@
 import 'package:chat_app_ui/Auth/authenticator.dart';
+import 'package:chat_app_ui/home/home.dart';
+import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
 import 'package:chat_app_ui/home/widgets/drawer.dart';
 
 // import 'package:chat_app_ui/home/widgets/bottomAppBar.dart';
@@ -236,6 +238,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: MyBottomAppBar(),
       appBar: AppBar(
        title: Text(
           "Profile Page",
@@ -247,7 +250,6 @@ class _ProfileState extends State<Profile> {
         actions: [
           Container(
             margin: EdgeInsets.only(
-              top: 16,
               right: 16,
             ),
             child: Icon(Icons.settings),
@@ -275,8 +277,6 @@ class _ProfileState extends State<Profile> {
             ),
             Container(
               alignment: Alignment.center,
-              margin: EdgeInsets.fromLTRB(25, 10, 25, 10),
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: Column(
                 children: [
                   Container(
@@ -295,13 +295,13 @@ class _ProfileState extends State<Profile> {
                     ),
                     child: CircleAvatar(
                       backgroundColor: Colors.white,
-                      child: Icon(
-                        Icons.person,
-                        size: 70,
-                        color: Colors.grey.shade200,
-                      ),
-                      backgroundImage:
-                          NetworkImage('${userData['profilePic']}'),
+                      child: platform
+                          ? Icon(
+                              Icons.person,
+                              size: 70,
+                              color: Colors.grey.shade200,
+                            )
+                          : Image.network('${userData['profilePic']}'),
                     ),
                   ),
                   SizedBox(

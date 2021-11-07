@@ -2,6 +2,8 @@
 import 'package:chat_app_ui/Auth/pages/signup/signupUtils.dart';
 import 'package:chat_app_ui/home/widgets/inputfield.dart';
 import 'package:flutter/material.dart';
+import 'package:chat_app_ui/home/home.dart';
+
 
 class Signup extends StatefulWidget {
   @override
@@ -30,12 +32,12 @@ class _SignupState extends State<Signup> {
                   Icon(
                     Icons.textsms,
                     size: 120,
-                    color: Colors.deepPurple[900],
+                    color: primaryColor,
                   ),
                   SizedBox(height: 10),
                   Text('FireChat',
                       style: TextStyle(
-                          color: Colors.deepPurple[900],
+                          color: primaryColor,
                           fontSize: 27,
                           fontWeight: FontWeight.w900)),
                   SizedBox(height: 30),
@@ -58,7 +60,7 @@ class _SignupState extends State<Signup> {
                   ),
                   SizedBox(height: 30),
                   MaterialButton(
-                    color: Colors.deepPurple.shade600,
+                    color: accentColor,
                     onPressed: () async {
                       String result = await register(name.text,email.text, password.text);
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -72,8 +74,9 @@ class _SignupState extends State<Signup> {
                         style: TextStyle(color: Colors.white, fontSize: 15)),
                     minWidth: 260,
                     height: 50,
-                    shape: StadiumBorder(
-                        side: BorderSide(width: 1, color: Colors.deepPurple)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                        ),
                   ),
                   SizedBox(height: 7),
                   GestureDetector(

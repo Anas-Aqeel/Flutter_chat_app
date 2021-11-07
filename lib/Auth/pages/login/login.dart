@@ -1,4 +1,5 @@
 import 'package:chat_app_ui/Auth/pages/login/loginUtils.dart';
+import 'package:chat_app_ui/home/home.dart';
 import 'package:chat_app_ui/home/widgets/inputfield.dart';
 import 'package:flutter/material.dart';
 
@@ -47,12 +48,13 @@ class _LoginState extends State<Login> {
                   Icon(
                     Icons.textsms,
                     size: 120,
-                    color: Colors.deepPurple[900],
+                    color: primaryColor,
                   ),
+                  
                   SizedBox(height: 10),
                   Text('FireChat',
                       style: TextStyle(
-                          color: Colors.deepPurple[900],
+                          color: accentColor,
                           fontSize: 27,
                           fontWeight: FontWeight.w900)),
                   SizedBox(height: 40),
@@ -70,7 +72,7 @@ class _LoginState extends State<Login> {
                   ),
                   SizedBox(height: 45),
                   MaterialButton(
-                    color: Colors.black,
+                    color: accentColor,
                     onPressed: () async {
                       print(email.text);
                       print(password.text);
@@ -80,9 +82,9 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.white, fontSize: 15)),
                     minWidth: 260,
                     height: 50,
-                    shape: StadiumBorder(
-                        side: BorderSide(width: 1, color: Colors.deepPurple)),
-                  ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(4),
+                    )),
                   SizedBox(height: 7),
                   GestureDetector(
                     onTap: () {
@@ -90,7 +92,7 @@ class _LoginState extends State<Login> {
                     },
                     child: Text('or signup instead',
                         style: TextStyle(
-                            color: Colors.deepPurple[900],
+                            color: accentColor,
                             fontSize: 15,
                             fontWeight: FontWeight.w400)),
                   ),

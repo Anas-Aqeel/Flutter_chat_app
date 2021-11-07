@@ -1,6 +1,4 @@
-import 'package:chat_app_ui/home/pages/Friends.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SearchBar extends StatefulWidget {
   @override
@@ -10,42 +8,23 @@ class SearchBar extends StatefulWidget {
 class _SearchBarState extends State<SearchBar> {
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-        onFieldSubmitted: (e) async {
-          List results = [];
-          FirebaseFirestore.instance
-              .collection("users")
-              .get()
-              .then((QuerySnapshot querySnapshot) {
-            querySnapshot.docs.forEach((doc) {
-              dynamic name = doc['name'];
-              if (name == e) {
-                setState(() {
-                  results.add(doc);
-                });
-                
-              }
-            });
-            setState(() {
-              print('object');
-              data = results;
-            });
-          });
-          print(e);
-        },
-        decoration: InputDecoration(
-          hintText: "Search...",
-          hintStyle: TextStyle(color: Colors.grey.shade600),
-          prefixIcon: Icon(
-            Icons.search,
-            color: Colors.grey.shade600,
-            size: 20,
-          ),
-          filled: true,
-          fillColor: Colors.grey.shade100,
-          enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20),
-              borderSide: BorderSide(color: Colors.grey.shade100)),
-        ));
+    return Container(
+      margin: EdgeInsets.only(top: 20, bottom: 10),
+      child: TextFormField(
+          decoration: InputDecoration(
+        hintText: "Search...",
+        hintStyle: TextStyle(color: Colors.grey.shade600),
+        prefixIcon: Icon(
+          Icons.search,
+          color: Colors.grey.shade600,
+          size: 20,
+        ),
+        filled: true,
+        fillColor: Colors.grey.shade100,
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5),
+            borderSide: BorderSide(color: Colors.grey.shade100)),
+      )),
+    );
   }
 }
