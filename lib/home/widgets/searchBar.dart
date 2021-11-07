@@ -20,7 +20,7 @@ class _SearchBarState extends State<SearchBar> {
           size: 20,
         ),
         filled: true,
-        fillColor: Colors.grey.shade100,
+        fillColor: Colors.grey.shade200,
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
             borderSide: BorderSide(color: Colors.grey.shade100)),
