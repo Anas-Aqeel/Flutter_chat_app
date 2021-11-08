@@ -1,4 +1,3 @@
-import 'package:chat_app_ui/home/pages/ChatScreen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chat_app_ui/Auth/authenticator.dart';
 
@@ -39,30 +38,4 @@ Future<void> generateChatRoomId(String userId) async {
   dynamic myUserData =
       await firestore.collection('users').doc(userData['userId']).get();
   userData = myUserData.data();
-}
-
-Future<List> getChatterProfile(String uid,String chatRoomId) async {
-  try {
-    var data = await firestore.collection('users').doc(uid).get();
-    chatter = data.data();
-    DocumentSnapshot myChatRoom = await firestore.collection('chatRoom').doc(chatRoomId).get();
-    chatRoom = myChatRoom.data();
-
-    return [chatter, chatRoom];
-  } catch (e) {
-    return['the error is \n $e'];
-  }
-}
-
-Future<void> sendMessage(String message,String uid)async{
-  var date = DateTime.now().toString();
-  date= date.split('.')[0];
-  await firestore.collection('chatRoom').doc(uid).set({
-    ...chatRoom,
-    'chats':[...chatRoom['chats'],{
-      'message':message,
-      'userId':userData['userId'],
-      'date':date
-    }]
-  });
 }

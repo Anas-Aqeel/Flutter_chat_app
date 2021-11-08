@@ -15,7 +15,6 @@ class _MyInputFieldState extends State<MyInputField> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
         child: TextFormField(
           onSaved: (e) {
             setState(() {
@@ -34,7 +33,7 @@ class _MyInputFieldState extends State<MyInputField> {
           obscureText: widget.type == 'Password',
           decoration: InputDecoration(
               filled: true,
-              fillColor: Colors.grey.shade200,
+              fillColor: Colors.grey.shade300,
               hintText: '${widget.type}',
               hintStyle: TextStyle(fontSize: 19, color: Colors.black54),
               prefixIcon: Padding(

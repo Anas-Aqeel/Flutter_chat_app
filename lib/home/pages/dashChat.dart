@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:chat_app_ui/home/home.dart';
 import 'package:chat_app_ui/home/widgets/loader.dart';
 import 'package:path/path.dart' as path;
 
@@ -52,28 +53,8 @@ class _MyDashChatState extends State<MyDashChat> {
     super.initState();
   }
 
-  // void systemMessage() {
-  //   Timer(Duration(milliseconds: 300), () {
-  //     if (i < 6) {
-  //       setState(() {
-  //         messages = [...messages, m[i]];
-  //       });
-  //       i++;
-  //     }
-  //     Timer(Duration(milliseconds: 300), () {
-  //       _chatViewKey.currentState!.scrollController
-  //         ..animateTo(
-  //           _chatViewKey
-  //               .currentState!.scrollController.position.maxScrollExtent,
-  //           curve: Curves.easeOut,
-  //           duration: const Duration(milliseconds: 300),
-  //         );
-  //     });
-  //   });
-  // }
-
   void onSend(ChatMessage message) {
-    Map<String,dynamic> myMessage = message.toJson();
+    Map<String, dynamic> myMessage = message.toJson();
     if (myMessage['image'] == '') {
       myMessage.remove('image');
     }
@@ -89,22 +70,54 @@ class _MyDashChatState extends State<MyDashChat> {
       messages = [...messages, message];
       print(messages.length);
     });
-
-    // if (i == 0) {
-    //   // systemMessage();
-    //   Timer(Duration(milliseconds: 600), () {
-    //     // systemMessage();
-    //   });
-    // } else {
-    //   // systemMessage();
-    // }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Chat App"),
+        leadingWidth: 30,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage('${ChatUser().avatar}'),
+              backgroundColor: Theme.of(context).primaryColor,
+              child: platform
+                  ? Text(
+                      '${ChatUser().name?.split('')[0].toUpperCase()}',
+                      style: TextStyle(color: Colors.white),
+                    )
+                  : Image.network('${ChatUser().avatar}'),
+            ),
+            SizedBox(width: 20),
+            Text(
+              "${myChatter['name']}",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+        elevation: 0.5,
+        iconTheme: IconThemeData(color: Colors.white),
+        actions: [
+          Container(
+            margin: EdgeInsets.only(
+              right: 16,
+            ),
+            child: Icon(Icons.settings),
+          )
+        ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  end: Alignment.topLeft,
+                  begin: Alignment.bottomRight,
+                  colors: <Color>[
+                Theme.of(context).primaryColor,
+                Theme.of(context).colorScheme.secondary,
+              ])),
+        ),
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: FirebaseFirestore.instance
@@ -125,15 +138,14 @@ class _MyDashChatState extends State<MyDashChat> {
                   .toList();
               return DashChat(
                 onSend: onSend,
-                avatarMaxSize: 80,
+                avatarMaxSize: 60,
                 textCapitalization: TextCapitalization.characters,
                 key: _chatViewKey,
                 inverted: false,
                 sendOnEnter: true,
-                
                 textInputAction: TextInputAction.send,
                 user: user,
-                quickReplyBuilder: (reply){
+                quickReplyBuilder: (reply) {
                   print(reply);
                   return Text('data');
                 },
@@ -146,25 +158,6 @@ class _MyDashChatState extends State<MyDashChat> {
 
                     messages = [...messages];
                   });
-
-                  // Timer(Duration(milliseconds: 300), () {
-                  //   _chatViewKey.currentState!.scrollController
-                  //     ..animateTo(
-                  //       _chatViewKey.currentState!.scrollController.position
-                  //           .maxScrollExtent,
-                  //       curve: Curves.easeOut,
-                  //       duration: const Duration(milliseconds: 300),
-                  //     );
-
-                  //   if (i == 0) {
-                  //     // systemMessage();
-                  //     Timer(Duration(milliseconds: 600), () {
-                  //       // systemMessage();
-                  //     });
-                  //   } else {
-                  //     // systemMessage();
-                  //   }
-                  // });
                 },
                 onLoadEarlier: () {
                   print("laoding...");
@@ -175,6 +168,18 @@ class _MyDashChatState extends State<MyDashChat> {
                 timeFormat: DateFormat('HH:mm'),
                 messages: messages,
                 showUserAvatar: true,
+                avatarBuilder: (c) {
+                  return CircleAvatar(
+                    backgroundImage: NetworkImage('${c.avatar}'),
+                    backgroundColor: Theme.of(context).primaryColor,
+                    child: platform
+                        ? Text(
+                            '${c.name?.split('')[0].toUpperCase()}',
+                            style: TextStyle(color: Colors.white),
+                          )
+                        : Image.network('${c.avatar}'),
+                  );
+                },
                 showAvatarForEveryMessage: false,
                 scrollToBottom: true,
                 onPressAvatar: (ChatUser user) {
@@ -192,7 +197,6 @@ class _MyDashChatState extends State<MyDashChat> {
                   color: Colors.white,
                 ),
                 showTraillingBeforeSend: true,
-                
                 shouldShowLoadEarlier: false,
                 trailing: <Widget>[
                   IconButton(

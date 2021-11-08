@@ -3,7 +3,9 @@ import 'package:chat_app_ui/Auth/pages/signup/signupUtils.dart';
 import 'package:chat_app_ui/home/widgets/inputfield.dart';
 import 'package:flutter/material.dart';
 import 'package:chat_app_ui/home/home.dart';
-
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Signup extends StatefulWidget {
   @override
@@ -20,30 +22,46 @@ class _SignupState extends State<Signup> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        body: Scaffold(
       body: SafeArea(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          child: Center(
+        child: Center(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            constraints: BoxConstraints(minWidth: 200, maxWidth: 450),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.textsms,
-                    size: 120,
-                    color: primaryColor,
+                  Center(
+                    child: Shimmer.fromColors(
+                        period: Duration(seconds: 2),
+                        highlightColor: HexColor('#0a0a0a'),
+                        baseColor: HexColor('#001a42'),
+                        child: Icon(
+                          Icons.textsms,
+                          size: 120,
+                        )),
                   ),
                   SizedBox(height: 10),
-                  Text('FireChat',
-                      style: TextStyle(
-                          color: primaryColor,
-                          fontSize: 27,
+                  Center(
+                    child: Text('FireChat',
+                        style: TextStyle(
+                            color: accentColor,
+                            fontSize: 27,
+                            fontWeight: FontWeight.w900)),
+                  ),
+                  SizedBox(height: 40),
+                  SizedBox(height: 20),
+                  Text('Register Here',
+                      style: GoogleFonts.amaticSc(
+                          color: accentColor,
+                          fontSize: 30,
                           fontWeight: FontWeight.w900)),
-                  SizedBox(height: 30),
-                  MyInputField(
-                    type: 'Name',
-                    icon: Icons.text_format,
+                  SizedBox(height: 10),
+                   MyInputField(
+                    type: 'Username',
+                    icon: Icons.account_circle,
                     name: name,
                   ),
                   SizedBox(height: 20),
@@ -58,36 +76,46 @@ class _SignupState extends State<Signup> {
                     icon: Icons.lock,
                     name: password,
                   ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 15),
                   MaterialButton(
-                    color: accentColor,
-                    onPressed: () async {
-                      String result = await register(name.text,email.text, password.text);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content:  Text('$result'),)
-                      );
-                      if (result == 'Registered Successfully') {
-                        Navigator.pushNamed(context, '/HOME');
-                      }
-                    },
-                    child: Text('SIGNUP',
-                        style: TextStyle(color: Colors.white, fontSize: 15)),
-                    minWidth: 260,
-                    height: 50,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                        ),
-                  ),
+                      color: accentColor,
+                      onPressed: () async {
+                        String result = await register(
+                            name.text, email.text, password.text);
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text('$result'),
+                        ));
+                        if (result == 'Registered Successfully') {
+                          Navigator.pushNamed(context, '/HOME');
+                        }
+                      },
+                      child: Text('Register',
+                          style: TextStyle(color: Colors.white, fontSize: 15)),
+                      minWidth: double.maxFinite,
+                      height: 50,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      )),
                   SizedBox(height: 7),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/LOGIN');
-                    },
-                    child: Text('or login instead',
-                        style: TextStyle(
-                            color: Colors.deepPurple[900],
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Forgot password?',
+                          style: TextStyle(
+                              color: accentColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400)),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(context, '/LOGIN');
+                        },
+                        child: Text("Already have account?",
+                            style: TextStyle(
+                                color: accentColor,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w400)),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -95,7 +123,6 @@ class _SignupState extends State<Signup> {
           ),
         ),
       ),
-    );
+    ));
   }
 }
-

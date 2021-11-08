@@ -8,20 +8,16 @@ Future<String> register(String name, String email, String password) async {
     FirebaseFirestore db = FirebaseFirestore.instance;
     var user = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    await db.collection("users").doc(user.user!.uid).set({
+    userData = {
       'name': '$name',
       'email': '$email',
       'country': '',
       'state': '',
       'bio': '',
-      'profilePic':'',
+      'profilePic': '',
       'chats': []
-    });
-    DocumentSnapshot client = await FirebaseFirestore.instance
-        .collection("users")
-        .doc(user.user!.uid)
-        .get();
-    userData = client.data();
+    };
+    await db.collection("users").doc(user.user!.uid).set({...userData});
     return 'Registered Successfully';
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {

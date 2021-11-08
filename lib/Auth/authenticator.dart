@@ -54,6 +54,7 @@ class _AuthenticatorState extends State<Authenticator> {
       return MaterialApp(
         
          theme: ThemeData(
+           fontFamily: 'Raleway',
         primaryColor: primaryColor,
         scaffoldBackgroundColor: Colors.grey.shade100,
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.grey)

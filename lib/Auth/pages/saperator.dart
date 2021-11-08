@@ -83,6 +83,7 @@ class MyButton extends StatelessWidget {
     return MaterialButton(
       color: bgColor,
       shape: RoundedRectangleBorder(
+        side: BorderSide(width: 1, color: txtColor),
                       borderRadius: BorderRadius.circular(4),
                         ),
       onPressed: () {
@@ -92,8 +93,7 @@ class MyButton extends StatelessWidget {
       child: Text('$txt', style: TextStyle(color: txtColor, fontSize: 15)),
       minWidth: 260,
       height: 50,
-      // shape:
-      //    border Border(side: BorderSide(width: 1, color: Colors.deepPurple)),
+      
     );
   }
 }
