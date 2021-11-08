@@ -15,7 +15,8 @@ Future<String> register(String name, String email, String password) async {
       'state': '',
       'bio': '',
       'profilePic': '',
-      'chats': []
+      'chats': [],
+      'userId': user.user!.uid
     };
     await db.collection("users").doc(user.user!.uid).set({...userData});
     return 'Registered Successfully';

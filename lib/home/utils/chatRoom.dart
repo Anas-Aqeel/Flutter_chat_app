@@ -4,6 +4,7 @@ import 'package:chat_app_ui/Auth/authenticator.dart';
 FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 Future<void> generateChatRoomId(String userId) async {
+print(userId);
   var chatRoomId = '${userData["userId"]}$userId';
   dynamic clientData = await firestore.collection('users').doc(userId).get();
   clientData = clientData.data();
